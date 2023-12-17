@@ -2,10 +2,13 @@ import { Card, Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { TRANSLATE } from "../translate";
 import FavIcon from "../components/fav-icon";
+import { useLike } from "../hooks/use-like";
+import { Uri } from "../types/type";
 
 type Recipe = {
   label: string;
   image: string;
+  uri: Uri;
   ingredientLines: string[];
   instructionLines: string[];
 };
@@ -15,12 +18,20 @@ interface RecipeDetailCardProps {
 }
 
 const RecipeDetailCard: React.FC<RecipeDetailCardProps> = ({ recipe }) => {
+  const [interact, isCurrentRecipeLiked] = useLike(recipe.uri);
+
   return (
     <Card style={styles.surface} elevation={1}>
       <Card.Title
         titleVariant="titleLarge"
         title={recipe.label}
-        right={(props) => <FavIcon {...props} />}
+        right={(props) => (
+          <FavIcon
+            {...props}
+            onPress={() => interact(recipe.uri)}
+            selected={isCurrentRecipeLiked}
+          />
+        )}
       />
       <Card.Cover source={{ uri: recipe.image }} />
       <Card.Content>

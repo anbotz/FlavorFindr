@@ -1,7 +1,7 @@
 import { ActivityIndicator, Card, IconButton, Text } from "react-native-paper";
 import { StyleSheet, ScrollView } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../types/type";
+import { RootStackParamList, Uri } from "../types/type";
 import { useGetRecipeQuery } from "../api/recipe-api";
 import RecipeDetailCard from "../components/recipe-details-card";
 
@@ -747,7 +747,7 @@ interface ScreenProps {
   navigation: RecipeScreenNavigationProp;
   route: {
     params: {
-      uri: string;
+      uri: Uri;
     };
   };
 }
@@ -756,35 +756,18 @@ const RecipeScreen: React.FC<ScreenProps> = ({ route }) => {
   const { uri } = route.params;
 
   const recipe = titi.hits[0].recipe;
+  const isLoading = false;
+  const isFetching = false;
 
-  // const { data, isLoading, isFetching } = useGetRecipeQuery({ uri });
-
-  console.log({ uri });
-  // console.log(data.hits);
-
-  // if (!isLoading && data) console.log(data.hits[0]);
+  //const { data, isLoading, isFetching } = useGetRecipeQuery({ uri });
+  //const recipe = data && data.hits[0].recipe;
 
   return (
     <ScrollView>
-      <RecipeDetailCard recipe={recipe} />
-
-      {/* {isLoading && (
-        <ScrollView style={styles.indicatorScrollView}>
-          <ActivityIndicator animating={true} size="large" />
-        </ScrollView>
+      {(isFetching || isLoading) && (
+        <ActivityIndicator animating={true} size="large" />
       )}
-      {!isLoading && data && (
-        <ScrollScrollView>
-          {data.hits.map((h, key) => (
-            <RecipeCard
-              key={key}
-              label={h.recipe.label}
-              image={h.recipe.image}
-              uri={h.recipe.uri}
-            />
-          ))}
-        </ScrollScrollView>
-      )} */}
+      {recipe && <RecipeDetailCard recipe={recipe} />}
     </ScrollView>
   );
 };

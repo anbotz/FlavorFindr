@@ -3,10 +3,10 @@ import { PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
-
-import HomeScreen from "./src/screen/home";
 import { store } from "./src/store";
-import RecipeScreen from "./src/screen/recipe";
+
+import HomeScreen from "./src/screens/home";
+import RecipeScreen from "./src/screens/recipe";
 
 const Stack = createNativeStackNavigator();
 

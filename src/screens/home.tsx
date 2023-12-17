@@ -221,26 +221,22 @@ const HomeScreen: React.FC<ScreenProps> = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   // tempo
-  const [q] = useDebounce(searchQuery, 2000);
-  const [health] = useDebounce(healthQuery, 2000);
+  const [q] = useDebounce(searchQuery, 500);
+  const [health] = useDebounce(healthQuery, 500);
   const isDebouncing = searchQuery !== q || healthQuery !== health;
 
   // const { data, isLoading, isFetching } = useSearchRecipesQuery({ q, health });
   const data = titouan;
   const isLoading = false;
   const isFetching = false;
-  if (!isLoading && data) console.log(data.hits[0]);
 
   return (
     <View style={styles.container}>
       <FilterComponent placeholder={TRANSLATE.SEARCH_RECIPE} />
-
-      {(isLoading || isDebouncing) && (
-        <View style={styles.indicatorView}>
-          <ActivityIndicator animating={true} size="large" />
-        </View>
+      {(isFetching || isLoading || isDebouncing) && (
+        <ActivityIndicator animating={true} size="large" />
       )}
-      {!isDebouncing && !isLoading && data && (
+      {!isDebouncing && data && (
         <ScrollView>
           {data.hits.map((h, key) => (
             <RecipeCard
@@ -250,6 +246,7 @@ const HomeScreen: React.FC<ScreenProps> = () => {
               onPress={() =>
                 navigation.navigate("Recipe", { uri: h.recipe.uri })
               }
+              uri={h.recipe.uri}
             />
           ))}
         </ScrollView>
@@ -262,7 +259,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
   },
-  indicatorView: { flex: 1, justifyContent: "center", height: "100%" },
 });
 
 export default HomeScreen;
