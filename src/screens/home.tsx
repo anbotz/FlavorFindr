@@ -42,6 +42,13 @@ const HomeScreen: React.FC<ScreenProps> = () => {
         <NoContentMessageComponent text={TRANSLATE.SEARCH_FOR_SOMETHING} />
       )}
       {(isFetching || isLoading || isDebouncing) && <LoadingComponent />}
+      {(q || health) &&
+        !isFetching &&
+        !isLoading &&
+        !isDebouncing &&
+        data?.hits.length === 0 && (
+          <NoContentMessageComponent text={TRANSLATE.NO_RECIPE_FOUND} />
+        )}
       {!isFetching && !isLoading && !isDebouncing && data && (
         <ScrollView>
           {data.hits.map((h, key) => (
