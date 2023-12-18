@@ -1,10 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Health, Hit } from "../types/type";
 import { APP_ID, APP_KEY } from "@env";
-
-type RecipeData = { hits: Hit[] };
-type SearchQuery = { q: string; health?: Health };
-type GetRecipeQuery = { uri: string };
+import { GetRecipeQuery, RecipeData, SearchQuery } from "./api-type";
 
 export const recipeApi = createApi({
   reducerPath: "recipeApi",

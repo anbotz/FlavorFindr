@@ -1,8 +1,9 @@
 import { Card } from "react-native-paper";
-import { StyleSheet } from "react-native";
+import { Alert, Share, StyleSheet } from "react-native";
 import FavIcon from "./fav-icon";
-import { useLike } from "../hooks/use-like";
+import { useInteraction } from "../hooks/use-interaction";
 import { Uri } from "../types/type";
+import ShareIcon from "./share-icon";
 
 interface RecipeCardProps {
   label: string;
@@ -17,17 +18,15 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   onPress,
   uri,
 }) => {
-  const [interact, isCurrentRecipeLiked] = useLike(uri);
+  const [onLike, isCurrentRecipeLiked, onShare] = useInteraction(uri);
 
   return (
     <Card style={styles.surface} elevation={1} onPress={onPress}>
       <Card.Cover source={{ uri: image }} />
       <Card.Title title={label} />
       <Card.Actions>
-        <FavIcon
-          onPress={() => interact(uri)}
-          selected={isCurrentRecipeLiked}
-        />
+        <FavIcon onPress={() => onLike(uri)} selected={isCurrentRecipeLiked} />
+        <ShareIcon onPress={() => onShare(uri)} />
       </Card.Actions>
     </Card>
   );

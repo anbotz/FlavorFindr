@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SegmentedButtons, Searchbar, Divider } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
@@ -14,13 +14,15 @@ const FilterComponent: React.FC<{ placeholder: string }> = ({
   const dispatch = useDispatch();
 
   return (
-    <View>
+    <View style={styles.container}>
       <Searchbar
+        style={styles.searchBar}
         onChangeText={(s) => dispatch(search(s))}
         value={searchQuery}
         placeholder={placeholder}
       />
       <SegmentedButtons
+        style={styles.segmentedButtons}
         value={health}
         density="high"
         onValueChange={(v) => {
@@ -46,5 +48,15 @@ const FilterComponent: React.FC<{ placeholder: string }> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  segmentedButtons: {
+    marginVertical: 5,
+  },
+  searchBar: {
+    marginTop: 5,
+  },
+  container: { marginHorizontal: 5 },
+});
 
 export default FilterComponent;

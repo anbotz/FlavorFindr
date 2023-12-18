@@ -32,7 +32,6 @@ npm expo start
 
 ## TO DO
 
-- Share feature
 - Styled the like button
 - fav screen
-- ...
+- Scroll infinite 
