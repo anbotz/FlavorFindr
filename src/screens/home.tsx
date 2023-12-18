@@ -1,4 +1,3 @@
-import { ActivityIndicator } from "react-native-paper";
 import { StyleSheet, ScrollView, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/type";
@@ -11,6 +10,8 @@ import { useDebounce } from "use-debounce";
 import RecipeCard from "../components/recipe-card";
 import { useNavigation } from "@react-navigation/native";
 import { TRANSLATE } from "../translate";
+import LoadingComponent from "../components/loading";
+import NoContentMessageComponent from "../components/no-content";
 
 type HomeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -37,10 +38,11 @@ const HomeScreen: React.FC<ScreenProps> = () => {
   return (
     <View style={styles.container}>
       <FilterComponent placeholder={TRANSLATE.SEARCH_RECIPE} />
-      {(isFetching || isLoading || isDebouncing) && (
-        <ActivityIndicator animating={true} size="large" />
+      {!q && !health && !isDebouncing && !isFetching && !isLoading && (
+        <NoContentMessageComponent text={TRANSLATE.SEARCH_FOR_SOMETHING} />
       )}
-      {!isDebouncing && data && (
+      {(isFetching || isLoading || isDebouncing) && <LoadingComponent />}
+      {!isFetching && !isLoading && !isDebouncing && data && (
         <ScrollView>
           {data.hits.map((h, key) => (
             <RecipeCard
@@ -61,6 +63,10 @@ const HomeScreen: React.FC<ScreenProps> = () => {
 
 const styles = StyleSheet.create({
   container: {
+    height: "100%",
+  },
+  inner: {
+    flex: 1,
     justifyContent: "center",
   },
 });

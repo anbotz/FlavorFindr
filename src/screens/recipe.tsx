@@ -1,10 +1,10 @@
-import { ActivityIndicator } from "react-native-paper";
 import { StyleSheet, ScrollView } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList, Uri } from "../types/type";
 import { useGetRecipeQuery } from "../api/recipe-api";
 // import { useGetRecipeQuery } from "../api/recipe-api.mock";
 import RecipeDetailCard from "../components/recipe-details-card";
+import LoadingComponent from "../components/loading";
 
 type RecipeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -27,10 +27,8 @@ const RecipeScreen: React.FC<ScreenProps> = ({ route }) => {
   const recipe = data && data.hits[0].recipe;
 
   return (
-    <ScrollView>
-      {(isFetching || isLoading) && (
-        <ActivityIndicator animating={true} size="large" />
-      )}
+    <ScrollView contentContainerStyle={styles.container}>
+      {(isFetching || isLoading) && <LoadingComponent />}
       {data && recipe && <RecipeDetailCard recipe={recipe} />}
     </ScrollView>
   );
@@ -38,13 +36,7 @@ const RecipeScreen: React.FC<ScreenProps> = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-  },
-  indicatorScrollView: { flex: 1, justifyContent: "center", height: "100%" },
-
-  surface: {
-    padding: 8,
-    margin: 5,
+    height: "100%",
   },
 });
 
