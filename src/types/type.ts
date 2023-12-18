@@ -5,4 +5,14 @@ export type RootStackParamList = {
   Recipe: { uri: Uri } | undefined;
 };
 
+export type Hit = {
+  recipe: {
+    uri: string;
+    label: string;
+    image: string;
+    ingredientLines: string[];
+    instructionLines: string[];
+  };
+};
+
 export type Health = "alcohol-cocktail" | "vegan" | "vegetarian" | "";

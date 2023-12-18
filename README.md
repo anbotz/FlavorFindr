@@ -5,12 +5,14 @@ FlavorFindr is a Recipes Mobile app, using React Native, TypeScript, RTK Query a
 ## Installation
 
 First, you shall signup on https://www.edamam.com/.
-Then, create a .env in root project directory :
+Then, create a .env in root project directory with :
 
 ```bash
   APP_ID=your_edamam_app_id
   APP_KEY=your_edamam_app_key
 ```
+
+NB : If you don't want to create a Edamam account, you can use mock data in `src/api/__mocks__/recipe.mock.js`, but this would be less dynamic (and my mocks are not really interesting)
 
 Then, you shall start the project with expo :
 

@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Health } from "../types/type";
+import { Health, Hit } from "../types/type";
 import { APP_ID, APP_KEY } from "@env";
 
-type Hit = { recipe: { uri: string; label: string; image: string } };
 type RecipeData = { hits: Hit[] };
 type SearchQuery = { q: string; health?: Health };
 type GetRecipeQuery = { uri: string };

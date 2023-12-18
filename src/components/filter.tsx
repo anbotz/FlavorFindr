@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import { SegmentedButtons, Searchbar, Divider } from "react-native-paper";
-
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { filterHealth, search } from "../slices/recipe";
